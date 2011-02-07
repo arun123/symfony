@@ -1,3 +1,23 @@
 homepage:
   url:   /
   param: { module: default, action: index }
+
+admin_pages:
+  url:   /admin_pages
+  param: { module: adminPages, action: index }
+
+admin_pages_new:
+  url:   /admin_pages/new
+  param: { module: adminPages, action: new }
+
+admin_pages_edit:
+  url:   /admin_pages/:id/edit
+  param: { module: adminPages, action: edit }
+
+admin_pages_show:
+  url:   /admin_pages/:id
+  param: { module: adminPages, action: show }
+
+admin_pages_delete:
+  url:   /admin_pages/:id/delete
+  param: { module: adminPages, action: delete }

@@ -1,22 +1,51 @@
 <?php
 
-/**
- * adminPages actions.
- *
- * @package    symfony
- * @subpackage adminPages
- * @author     Your name here
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
- */
 class adminPagesActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
+  
   public function executeIndex(sfWebRequest $request)
   {
-    $this->forward('default', 'module');
+    $this->pages = Doctrine::getTable('page')->findAll();
   }
+
+  public function executeNew(sfWebRequest $request)
+  {
+    $this->form = new pageForm();
+  
+    if ($request->getParameter('page'))
+    {
+
+      $this->form->bind($request->getParameter('page'));
+
+      if ($this->form->isValid())
+      {
+        $item = $this->form->save();
+        $this->redirect('@admin_pages_show?id='.$item->id);
+      }
+    }
+        
+  }
+
+  public function executeEdit(sfWebRequest $request)
+  {
+    $this->form = new pageForm(Doctrine::getTable('page')->findOneById($request->getParameter('id')));
+
+     if ($request->getParameter('page'))
+      {
+        $this->form->bind($request->getParameter('page'));
+  
+        if ($this->form->isValid())
+        {
+          $this->form->save();
+          $this->redirect('@admin_pages');
+          
+        }
+      }
+  }
+  
+  public function executeShow(sfWebRequest $request)
+  {
+    $this->page = Doctrine::getTable('page')->findOneById($request->getParameter('id'));
+  }
+
 }
