@@ -36,7 +36,7 @@
           <td class="left"><?php echo $row->author; ?></td>
           <td class="left"><?php echo $row->created_at; ?></td>  
           <td class="left"><?php echo $row->updated_at; ?></td>           
-          <td><a class="edit" href="<?php echo url_for('admin_pages_edit',array( 'id' => $row->getId())); ?>"><?php echo ("Edit"); ?></a> </td>
+          <td><a class="edit" href="<?php echo url_for('admin_pages_edit',array( 'id' => $row->getId())); ?>"><?php echo ("Edit"); ?></a><?php echo link_to("Delete", '@admin_pages_delete?id='.$row->getId(), array('method' => 'delete', 'confirm' => ('Are you sure?'), 'class' => 'delete')); ?> </td>
         </tr>
       <?php } ?>
     </tbody>
